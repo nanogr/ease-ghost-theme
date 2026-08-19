@@ -1,4 +1,4 @@
-const {series, parallel, watch, src, dest} = require('gulp');
+const { series, parallel, watch, src, dest } = require('gulp');
 const pump = require('pump');
 const fs = require('fs');
 const path = require('path');
@@ -44,13 +44,13 @@ function hbs(done) {
 
 function css(done) {
     pump([
-        src('assets/css/screen.css', {sourcemaps: true}),
+        src('assets/css/screen.css', { sourcemaps: true }),
         postcss([
             easyimport,
             autoprefixer(),
             cssnano()
         ]),
-        dest('assets/built/', {sourcemaps: '.'}),
+        dest('assets/built/', { sourcemaps: '.' }),
         livereload()
     ], handleError(done));
 }
@@ -72,10 +72,10 @@ function getJsFiles(version) {
 
 function js(done) {
     pump([
-        order(getJsFiles('v1'), {sourcemaps: true}),
+        order(getJsFiles('v1'), { sourcemaps: true }),
         concat('main.min.js'),
         uglify(),
-        dest('assets/built/', {sourcemaps: '.'}),
+        dest('assets/built/', { sourcemaps: '.' }),
         livereload()
     ], handleError(done));
 }
@@ -93,7 +93,7 @@ function zipper(done) {
             '!pnpm-workspace.yaml',
             '!AGENTS.md',
             '!CLAUDE.md',
-        ], {encoding: false}),
+        ], { encoding: false }),
         zip(filename),
         dest('dist/')
     ], handleError(done));
